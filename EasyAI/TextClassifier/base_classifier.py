@@ -7,6 +7,7 @@
 import os
 import pandas as pd
 from loguru import logger
+from EasyAI.base_model import EasyBaseModel
 
 
 def load_data(
@@ -57,7 +58,7 @@ def load_data(
     return X, y, data_df
 
 
-class ClassifierABC:
+class ClassifierABC(EasyBaseModel):
     """
     Abstract class for classifier
     """

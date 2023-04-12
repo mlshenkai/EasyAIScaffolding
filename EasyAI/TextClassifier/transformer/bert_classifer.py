@@ -176,7 +176,7 @@ class BertClassifier(ClassifierABC):
         if not self.is_trained:
             raise ValueError("model not trained.")
         # predict
-        predictions, raw_outputs = self.model.predict(sentences)
+        predictions, raw_outputs = self.model.predict(sentences, top_k)
         if self.multi_label:
             return predictions, raw_outputs
         else:
