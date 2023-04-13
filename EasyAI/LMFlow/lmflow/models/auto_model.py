@@ -85,10 +85,14 @@ class HFAutoModel:
                 self.backend_model = AutoModel.from_pretrained(
                     model_args.model_name_or_path, **model_kwargs
                 )
-            self.tokenizer = AutoTokenizer.from_pretrained(model_args.model_name_or_path)
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                model_args.model_name_or_path
+            )
             self.backend_model_full = self.backend_model
             if peft_model_id is not None:
-                self.backend_model = PeftModel.from_pretrained(self.backend_model, peft_model_id)
+                self.backend_model = PeftModel.from_pretrained(
+                    self.backend_model, peft_model_id
+                )
             if self.use_gpu:
                 deepspeed.init_distributed()
                 self.ds_engine = deepspeed.initialize(
@@ -284,7 +288,7 @@ class HFAutoModel:
                     synced_gpus=True,
                     pad_token_id=self.tokenizer.pad_token_id,
                     *args,
-                    **kwargs
+                    **kwargs,
                 )
             else:
                 outputs = self.backend_model.generator(
@@ -292,26 +296,24 @@ class HFAutoModel:
                     synced_gpus=True,
                     pad_token_id=self.tokenizer.pad_token_id,
                     *args,
-                    **kwargs
+                    **kwargs,
                 )
         return outputs
-
 
     def merge_lora_weight(self):
         if self.model_args.use_lora:
             self.get_backend_model().merge_and_upload()
         else:
-            logger.warning("LoRA training is NOT enabled. Merging LoRA weights is not applicable.")
+            logger.warning(
+                "LoRA training is NOT enabled. Merging LoRA weights is not applicable."
+            )
 
     def save(self, dir: Path, save_full_name=False, *args, **kwargs):
-            self.get_tokenizer().save_pretrained(dir.as_posix())
-            if save_full_name and self.model_args.use_lora:
-                self.backend_model_full.save_pretrained(dir.as_posix())
-            else:
-                self.get_backend_model().save_pretrained(dir.as_posix())
-
-
-
+        self.get_tokenizer().save_pretrained(dir.as_posix())
+        if save_full_name and self.model_args.use_lora:
+            self.backend_model_full.save_pretrained(dir.as_posix())
+        else:
+            self.get_backend_model().save_pretrained(dir.as_posix())
 
     def get_max_length(self):
         return self.tokenizer.model_max_length
@@ -321,4 +323,3 @@ class HFAutoModel:
 
     def get_backend_model(self):
         return self.backend_model
-

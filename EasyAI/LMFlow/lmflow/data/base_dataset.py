@@ -83,6 +83,18 @@ class LLMBaseDataset(ABC):
                         hf_dict[key].append(value)
             self.backend_dataset = HFDataset.from_dict(hf_dict, *args, **kwargs)
 
+    @classmethod
+    def create_from_dict(cls, dict_obj, *args, **kwargs):
+        r"""
+        Returns
+        --------
+
+        Returns a Dataset object given a dict.
+        """
+        empty_data_args = DataArguments(dataset_path=None)
+        dataset = cls(empty_data_args)
+        return dataset.from_dict(dict_obj)
+
     def to_dict(self):
         """
         from backend_dataset to dict
@@ -157,7 +169,7 @@ class LLMBaseDataset(ABC):
                 f" if {self.backend} != huggingface, you must implement this func"
             )
 
-    def get_backend_dataset(self):
+    def get_backend_dataset(self) -> HFDataset:
         return self.backend_dataset
 
     def get_data_args(self):
