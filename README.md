@@ -11,10 +11,9 @@
     - [X]  textcnn
     - [X]  textrnn
     - [X]  bert
-- [ ]  LLM
-    - [ ]  [ChatGLM](https://github.com/mlshenkai/ChatGLM-Tuning)
-    - [ ]  LLAMA
-    - [ ]  LLM LoRA
+- [ ]  LLM finetuner
+    - [X]  decode-only
+    - [ ]  encode-decode
     
 
 
