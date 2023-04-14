@@ -40,6 +40,3 @@ class LMAutoModel:
             raise NotImplementedError(f"暂不支持{model_args.arch_type}结构")
 
 
-
-# if __name__ == "__main__":
-#     LMAutoModel.get_model()

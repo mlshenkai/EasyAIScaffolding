@@ -6,10 +6,14 @@
 from typing import Union, List
 from ..args import ModelArguments
 from .base_model import LMBaseModel
+from .base_encode_decode_model import BaseEncodeDecodeModel
 from ..data.dataset import LMDataset
 
 
-class LMEncodeDecodeModel(LMBaseModel):
+class LMEncodeDecodeModel(LMBaseModel, BaseEncodeDecodeModel):
+    def check_is_encode_decode_model(self):
+        pass
+
     def __init__(
         self,
         model_args: ModelArguments,

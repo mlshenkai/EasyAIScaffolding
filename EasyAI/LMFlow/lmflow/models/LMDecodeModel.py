@@ -27,13 +27,17 @@ import transformers.utils.logging
 from transformers import CONFIG_MAPPING, AutoConfig, AutoModelForCausalLM as AutoModel, AutoTokenizer
 from dataclasses import make_dataclass, asdict
 from .base_model import LMBaseModel
+from .base_decode_only_model import BaseDecodeOnlyModel
 from EasyAI.LMFlow.lmflow.args import ModelArguments
 
 
-class LMDecodeModel(LMBaseModel):
+class LMDecodeModel(LMBaseModel, BaseDecodeOnlyModel):
     """
     init model
     """
+
+    def check_is_base_only_model(self):
+        pass
 
     def __init__(
             self,
