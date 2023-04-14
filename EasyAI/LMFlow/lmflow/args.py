@@ -557,6 +557,16 @@ class InferenceArguments:
             "choices": ["bf16", "fp16"],
         },
     )
+    device: Optional[str] = field(
+        default="gpu",
+        metadata={
+            "help": "device"
+        }
+    )
+
+@dataclass
+class RaftAlignerArguments:
+    pass
 
 
 PIPELINE_ARGUMENT_MAPPING = OrderedDict(

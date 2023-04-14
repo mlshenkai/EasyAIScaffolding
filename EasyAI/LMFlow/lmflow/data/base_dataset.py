@@ -6,10 +6,10 @@
 from abc import ABC
 from collections import defaultdict
 from datasets import Dataset as HFDataset
-from ..args import DataArguments
+from EasyAI.LMFlow.lmflow.args import DataArguments
 
 
-class LLMBaseDataset(ABC):
+class LMBaseDataset(ABC):
     def __init__(self, data_args: DataArguments = None, backend: str = "huggingface", *args, **kwargs):
         self.data_args = data_args
         self.backend = backend
@@ -82,6 +82,7 @@ class LLMBaseDataset(ABC):
                         value = instance[key]
                         hf_dict[key].append(value)
             self.backend_dataset = HFDataset.from_dict(hf_dict, *args, **kwargs)
+            return self
 
     @classmethod
     def create_from_dict(cls, dict_obj, *args, **kwargs):

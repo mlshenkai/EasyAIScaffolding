@@ -16,8 +16,8 @@ from transformers.trainer_utils import get_last_checkpoint
 from transformers import set_seed, Trainer, default_data_collator
 import transformers.utils.logging
 from ..args import ModelArguments, DataArguments, FinetunerArguments
-from ..data.dataset import LLMDataset
-from ..models.auto_model import HFAutoModel
+from ..data.dataset import LMDataset
+from ..models.base_model import LMBaseModel
 
 
 class Finetuner(BaseTuner):
@@ -133,7 +133,7 @@ class Finetuner(BaseTuner):
 
         return lm_datasets
 
-    def tune(self, model: HFAutoModel, lm_dataset: LLMDataset):
+    def tune(self, model: LMBaseModel, lm_dataset: LMDataset):
         """
         Perform tuning for a model
         Args:

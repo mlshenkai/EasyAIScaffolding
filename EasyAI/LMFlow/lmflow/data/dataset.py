@@ -6,9 +6,9 @@
 
 from datasets import load_dataset, Dataset
 from typing import Optional
-from ..args import DataArguments
+from EasyAI.LMFlow.lmflow.args import DataArguments
 from pathlib import Path
-from .base_dataset import LLMBaseDataset
+from EasyAI.LMFlow.lmflow.data.base_dataset import LMBaseDataset
 import json
 import csv
 
@@ -18,7 +18,7 @@ KEY_TYPE = "type"
 KEY_INSTANCES = "instances"
 
 
-class LLMDataset(LLMBaseDataset):
+class LMDataset(LMBaseDataset):
     def __init__(
         self,
         data_args: DataArguments = None,
@@ -26,8 +26,12 @@ class LLMDataset(LLMBaseDataset):
         *args,
         **kwargs,
     ):
-        super(LLMDataset, self).__init__(data_args, backend, *args, **kwargs)
+        super(LMDataset, self).__init__(data_args, backend, *args, **kwargs)
+
+        if data_args.dataset_path is None:
+            return
         if backend == "huggingface":
+
             data_files = [
                 x.absolute().as_posix() for x in Path(self.dataset_path).glob("*.json")
             ]

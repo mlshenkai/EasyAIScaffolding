@@ -9,7 +9,7 @@ import torch
 import time
 import torch.distributed as dist
 from transformers.testing_utils import CaptureLogger
-from ..data.dataset import LLMDataset
+from ..data.dataset import LMDataset
 from .base_aligner import BaseAligner
 from ..args import ModelArguments, DataArguments, RaftAlignerArguments, TrainingArguments
 import os
@@ -233,7 +233,7 @@ class RaftAligner(BaseAligner):
                 ]
                 texts_for_rewards = [q + r for q, r in zip(input_texts, generated_texts)]
 
-                texts_for_reward_dataset = LLMDataset.create_from_dict({
+                texts_for_reward_dataset = LMDataset.create_from_dict({
                     "type": "text_only",
                     "instances": [
                         { "text": text } for text in texts_for_rewards
