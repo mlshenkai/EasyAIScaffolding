@@ -250,7 +250,7 @@ class LMBaseModel(ABC):
         """
         Perform encoding process of the tokenizer.
         Args:
-            input:
+            inputs:
             *args:
             **kwargs:
 
@@ -285,8 +285,18 @@ class LMBaseModel(ABC):
             # Can be list of ints or a Tensor
             return self.tokenizer.decode(input, *args, **kwargs)
 
-    def inference(self, inputs, *args, **kwargs):
+    def generate(self, inputs, *args, **kwargs):
         raise NotImplementedError("inference func must be implement")
+
+    @torch.no_grad()
+    def inference(self, inputs, *args, **kwargs):
+        if self.use_gpu:
+            outputs = self.backend_model.module(inputs, **kwargs)
+            return outputs
+        else:
+            outputs = self.backend_model(inputs, **kwargs)
+            return outputs
+
 
     def merge_tune_weight(self, *args, **kwargs):
         if self.model_args.use_lora:

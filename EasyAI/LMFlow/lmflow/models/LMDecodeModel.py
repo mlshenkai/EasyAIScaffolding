@@ -17,7 +17,7 @@ class LMDecodeModel(LMBaseModel, BaseDecodeOnlyModel):
     def check_is_base_only_model(self):
         pass
 
-    def inference(self, inputs, *args, **kwargs):
+    def generate(self, inputs, *args, **kwargs):
         """
         Perform generation process of the model.
         Args:
