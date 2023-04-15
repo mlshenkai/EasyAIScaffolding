@@ -11,7 +11,6 @@ from loguru import logger
 
 
 class LMAutoModel:
-
     @classmethod
     def get_model(
         cls,
@@ -38,5 +37,3 @@ class LMAutoModel:
             )
         else:
             raise NotImplementedError(f"暂不支持{model_args.arch_type}结构")
-
-

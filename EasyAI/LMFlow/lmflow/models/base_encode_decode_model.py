@@ -5,8 +5,8 @@
 # @Email: mlshenkai@163.com
 from abc import ABC
 
-class BaseEncodeDecodeModel(ABC):
 
+class BaseEncodeDecodeModel(ABC):
     def check_is_encode_decode_model(self):
         # TODO (@Watcher) add check func
         raise NotImplementedError(

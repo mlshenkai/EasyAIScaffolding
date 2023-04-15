@@ -191,6 +191,13 @@ class ModelArguments:
             "help": "Merging ratio between the fine-tuned model and the original. This is controlled by a parameter called alpha in the paper."
         },
     )
+    lora_task_type: str = field(
+        default="CAUSAL_LM",
+        metadata={
+            "help": "set task type",
+            "choices": ["SEQ_CLS", "SEQ_2_SEQ_LM", "CAUSAL_LM", "TOKEN_CLS"]
+        }
+    )
     lora_dropout: float = field(
         default=0.1,
         metadata={"help": "The dropout rate in lora.linear."},
